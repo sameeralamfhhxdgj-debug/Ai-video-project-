@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My AI Video Generator</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:white;font-family:Arial,sans-serif;padding:22px}
+.container{max-width:600px;margin:auto}
+h1{text-align:center;color:#8be9fd}
+p{color:#cbd5e1;text-align:center}
+label{display:block;margin:18px 0 8px}
+textarea,select,input{width:100%;padding:13px;border-radius:10px;border:1px solid #475569;background:#172033;color:white;font-size:16px}
+textarea{height:120px;resize:vertical}
+button{width:100%;padding:15px;margin-top:18px;border:0;border-radius:10px;background:#16a34a;color:white;font-size:17px;font-weight:bold}
+.note{font-size:13px;line-height:1.6}
+#status{padding:12px;background:#172033;border-radius:10px;margin-top:16px;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🎬 My AI Video Generator</h1>
+<p>Create your next video with AI</p>
+<label for="prompt">Describe your video</label>
+<textarea id="prompt" placeholder="Example: A peaceful village at sunrise, cinematic 4K..."></textarea>
+<label for="style">Video style</label>
+<select id="style">
+<option>Cinematic</option>
+<option>Islamic Reminder</option>
+<option>Village Vlog</option>
+<option>3D Cartoon</option>
+<option>Mystery and Suspense</option>
+</select>
+<label for="ratio">Aspect ratio</label>
+<select id="ratio">
+<option value="9:16">9:16 — Shorts and Reels</option>
+<option value="16:9">16:9 — YouTube</option>
+<option value="1:1">1:1 — Square</option>
+</select>
+<button onclick="makePrompt()">Generate Video Prompt</button>
+<div id="status" aria-live="polite">Your prompt will appear here.</div>
+<button onclick="copyPrompt()">Copy Video Prompt</button>
+<p class="note">This starter app creates a video-generation prompt. Actual video rendering requires a connected AI video service/API.</p>
+</div>
+<script>
+function makePrompt(){
+const p=document.getElementById('prompt').value.trim();
+const s=document.getElementById('style').value;
+const r=document.getElementById('ratio').value;
+if(!p){document.getElementById('status').textContent='Please describe your video first.';return;}
+document.getElementById('status').textContent=
+'Video prompt:\n'+p+'\nStyle: '+s+
+'\nAspect ratio: '+r+
+'\nQuality: 4K cinematic look, detailed visuals, smooth camera movement, consistent characters and lighting.';
+}
+async function copyPrompt(){
+const t=document.getElementById('status').textContent;
+try{await navigator.clipboard.writeText(t);
+document.getElementById('status').textContent=t+'\n\nCopied!';
+}catch(e){document.getElementById('status').textContent=t+'\n\nSelect and copy the text manually.';}
+}
+</script>
+</body>
+</html>
